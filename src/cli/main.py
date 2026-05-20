@@ -38,10 +38,11 @@ def cli():
     if args.command == "init":
         print(f"Initializing project: {args.name}")
     elif args.command == "deploy":
-        if not Path(args.manifest).is_file():
-            print(f"error: manifest file not found: {args.manifest}", file=sys.stderr)
+        manifest_path = Path(args.manifest).expanduser()
+        if not manifest_path.is_file():
+            print(f"error: manifest file not found: {manifest_path}", file=sys.stderr)
             sys.exit(1)
-        print(f"Deploying agent from manifest: {args.manifest}")
+        print(f"Deploying agent from manifest: {manifest_path}")
     elif args.command == "status":
         print("Checking agent status...")
     elif args.command == "logs":
